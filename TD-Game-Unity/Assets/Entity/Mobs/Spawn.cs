@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class Spawn : MonoBehaviour
 {
     [SerializeField] private Transform[] pontosDeSpawn;
+    [SerializeField] private float tempoEntreOndas = 10f;
 
     private Transform pathContainer;
     private FaseSO faseAtual;
@@ -47,6 +48,8 @@ public class Spawn : MonoBehaviour
                     yield return new WaitForSeconds(intervalo);
                 }
             }
+
+            yield return new WaitForSeconds(tempoEntreOndas);
         }
     }
 }
