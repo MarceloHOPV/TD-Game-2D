@@ -16,6 +16,15 @@ public class Enemy_01 : MonoBehaviour
 
     void Start()
     {
+        if (pathContainer != null)
+        {
+            DefinirCaminho(pathContainer);
+        }
+    }
+
+    public void DefinirCaminho(Transform container)
+    {
+        pathContainer = container;
         waypoints = new Transform[pathContainer.childCount];
         for (int i = 0; i < pathContainer.childCount; i++)
         {
