@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,13 +8,26 @@ public class Spawn : MonoBehaviour
     [SerializeField] private Transform[] pontosDeSpawn;
     [SerializeField] private float tempoEntreOndas = 10f;
 
+    public event System.Action OnOndaIniciada;
+    public event System.Action<float> OnIntervaloEntreOndasIniciado;
+    public event System.Action OnVitoria;
+
     private Transform pathContainer;
+    private Entity objetivo;
     private FaseSO faseAtual;
     private MultiplicadorDificuldade multiplicadorAtual;
+    private readonly List<GameObject> mobsDaOndaAtual = new List<GameObject>();
+    private bool pularEspera;
+
+    public void PularEspera()
+    {
+        pularEspera = true;
+    }
 
     void Start()
     {
         pathContainer = GameObject.Find("Enemy_Path").transform;
+        objetivo = GameObject.Find("Objective").GetComponent<Entity>();
 
         FaseSO[] fasesDisponiveis = Resources.LoadAll<FaseSO>("");
         string nomeCena = SceneManager.GetActiveScene().name;
@@ -32,8 +46,13 @@ public class Spawn : MonoBehaviour
 
     private IEnumerator SpawnarOndas()
     {
-        foreach (Onda onda in faseAtual.ordas)
+        for (int indiceOnda = 0; indiceOnda < faseAtual.ordas.Length; indiceOnda++)
         {
+            Onda onda = faseAtual.ordas[indiceOnda];
+
+            OnOndaIniciada?.Invoke();
+            mobsDaOndaAtual.Clear();
+
             float intervalo = faseAtual.intervaloBaseSpawn * Mathf.Pow(1f - multiplicadorAtual.aceleracaoPorOnda, onda.numero - 1);
 
             foreach (MobOnda mob in onda.mobs)
@@ -44,12 +63,36 @@ public class Spawn : MonoBehaviour
                 {
                     Transform pontoSorteado = pontosDeSpawn[Random.Range(0, pontosDeSpawn.Length)];
                     GameObject mobInstanciado = Instantiate(mob.prefab, pontoSorteado.position, Quaternion.identity);
-                    mobInstanciado.GetComponent<Enemy_01>().DefinirCaminho(pathContainer);
+                    mobInstanciado.GetComponent<Enemy_01>().DefinirCaminho(pathContainer, objetivo);
+                    mobsDaOndaAtual.Add(mobInstanciado);
                     yield return new WaitForSeconds(intervalo);
                 }
             }
 
-            yield return new WaitForSeconds(tempoEntreOndas);
+            while (mobsDaOndaAtual.Exists(mob => mob != null))
+            {
+                yield return null;
+            }
+
+            bool ultimaOnda = indiceOnda == faseAtual.ordas.Length - 1;
+
+            if (ultimaOnda)
+            {
+                OnVitoria?.Invoke();
+            }
+            else
+            {
+                pularEspera = false;
+                OnIntervaloEntreOndasIniciado?.Invoke(tempoEntreOndas);
+
+                float tempoRestante = tempoEntreOndas;
+
+                while (tempoRestante > 0f && !pularEspera)
+                {
+                    tempoRestante -= Time.deltaTime;
+                    yield return null;
+                }
+            }
         }
     }
 }

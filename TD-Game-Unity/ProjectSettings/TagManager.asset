@@ -58,6 +58,9 @@ TagManager:
   - name: Bullet
     uniqueID: 942425581
     locked: 0
+  - name: UI
+    uniqueID: 1704974665
+    locked: 0
   m_RenderingLayers:
   - Default
   m_MigratedRenderPipelines: []

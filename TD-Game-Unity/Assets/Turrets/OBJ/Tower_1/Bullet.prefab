@@ -142,5 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1762f8d6f27fe5845948ea35f78ab88b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  dano: 4
+  dano: 2
   velocidade: 10

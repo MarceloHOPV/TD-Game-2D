@@ -10,6 +10,7 @@ public class Enemy_01 : Entity
     [SerializeField] private Transform pathContainer;
 
     private Transform[] waypoints;
+    private Entity objetivo;
     private EstadoInimigo estadoAtual = EstadoInimigo.Andar;
     private int waypointAtual = 0;
 
@@ -17,13 +18,14 @@ public class Enemy_01 : Entity
     {
         if (pathContainer != null)
         {
-            DefinirCaminho(pathContainer);
+            DefinirCaminho(pathContainer, objetivo);
         }
     }
 
-    public void DefinirCaminho(Transform container)
+    public void DefinirCaminho(Transform container, Entity objetivoAtual)
     {
         pathContainer = container;
+        objetivo = objetivoAtual;
         waypoints = new Transform[pathContainer.childCount];
         for (int i = 0; i < pathContainer.childCount; i++)
         {
@@ -52,6 +54,12 @@ public class Enemy_01 : Entity
         if (transform.position == destino.position)
         {
             waypointAtual++;
+
+            if (waypointAtual >= waypoints.Length)
+            {
+                objetivo.TomarDano(dano);
+                Morrer();
+            }
         }
     }
 }

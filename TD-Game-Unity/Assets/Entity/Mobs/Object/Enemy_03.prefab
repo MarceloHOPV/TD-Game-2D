@@ -109,6 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_01
   vidaMaxima: 20
   velocidade: 2
+  dano: 8
   vidaAtual: 0
   pathContainer: {fileID: 0}
 --- !u!58 &-9201069371494996409

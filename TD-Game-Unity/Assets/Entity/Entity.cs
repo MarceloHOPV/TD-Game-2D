@@ -4,6 +4,7 @@ public class Entity : MonoBehaviour
 {
     [SerializeField] protected float vidaMaxima = 10f;
     [SerializeField] protected float velocidade = 2f;
+    [SerializeField] protected float dano = 1f;
 
     [SerializeField] protected float vidaAtual;
 
