@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy_01 : MonoBehaviour
+public class Enemy_01 : Entity
 {
     private enum EstadoInimigo
     {
@@ -8,7 +8,6 @@ public class Enemy_01 : MonoBehaviour
     }
 
     [SerializeField] private Transform pathContainer;
-    [SerializeField] private float velocidade = 2f;
 
     private Transform[] waypoints;
     private EstadoInimigo estadoAtual = EstadoInimigo.Andar;

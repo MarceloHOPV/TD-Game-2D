@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -11,9 +13,9 @@ TagManager:
   - Floor
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Turret
+  - Enemy
+  - Bullet
   - 
   - 
   - 
@@ -44,8 +46,17 @@ TagManager:
   - name: Path
     uniqueID: 3416908255
     locked: 0
+  - name: Turret
+    uniqueID: 684623345
+    locked: 0
+  - name: Turret_gun
+    uniqueID: 3121256511
+    locked: 0
   - name: Enemy
     uniqueID: 4245657343
+    locked: 0
+  - name: Bullet
+    uniqueID: 942425581
     locked: 0
   m_RenderingLayers:
   - Default
