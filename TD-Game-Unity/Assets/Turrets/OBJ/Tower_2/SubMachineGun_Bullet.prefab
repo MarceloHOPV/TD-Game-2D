@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1409302946878371804}
   - component: {fileID: -7121632165259336312}
   m_Layer: 8
-  m_Name: Bullet
+  m_Name: SubMachineGun_Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,5 +142,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1762f8d6f27fe5845948ea35f78ab88b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  dano: 2
+  dano: 1
   velocidade: 10

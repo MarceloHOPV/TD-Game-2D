@@ -145,9 +145,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Turret
   canhao: {fileID: 2233718885099058835}
   pontoDeTiro: {fileID: 1573110599446847410}
-  prefabBala: {fileID: 7151939413315521301, guid: f8fb0f6ba55b33c45845f953aa4a865a, type: 3}
+  prefabBala: {fileID: 7151939413315521301, guid: 3c8e6f94d5503f342a662b5bc44a69ce, type: 3}
   velocidadeRotacao: 300
-  taxaDeTiro: 1
+  taxaDeTiro: 0.5
+  toleranciaMira: 2
 --- !u!1 &2838849658625002663
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,7 +160,7 @@ GameObject:
   - component: {fileID: 2233718885099058835}
   - component: {fileID: 5328576606827689372}
   m_Layer: 0
-  m_Name: Turret_Gun
+  m_Name: Turret_Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -231,7 +232,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.9811321, g: 0, b: 0.8170024, a: 1}
+  m_Color: {r: 0.8207547, g: 0.015911154, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
