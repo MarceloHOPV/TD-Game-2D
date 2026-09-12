@@ -7,6 +7,7 @@ public class Spawn : MonoBehaviour
 {
     [SerializeField] private Transform[] pontosDeSpawn;
     [SerializeField] private float tempoEntreOndas = 10f;
+    [SerializeField] private float tempoInicial = 60f;
 
     public event System.Action OnOndaIniciada;
     public event System.Action<float> OnIntervaloEntreOndasIniciado;
@@ -24,7 +25,7 @@ public class Spawn : MonoBehaviour
         pularEspera = true;
     }
 
-    void Start()
+    IEnumerator Start()
     {
         pathContainer = GameObject.Find("Enemy_Path").transform;
         objetivo = GameObject.Find("Objective").GetComponent<Entity>();
@@ -36,12 +37,27 @@ public class Spawn : MonoBehaviour
         if (faseAtual == null)
         {
             Debug.LogError($"Nenhuma FaseSO encontrada para a cena '{nomeCena}'.");
-            return;
+            yield break;
         }
 
         multiplicadorAtual = System.Array.Find(faseAtual.multiplicadores, m => m.dificuldade == faseAtual.dificuldadeEscolhida);
 
-        StartCoroutine(SpawnarOndas());
+        yield return Esperar(tempoInicial);
+        yield return SpawnarOndas();
+    }
+
+    private IEnumerator Esperar(float duracao)
+    {
+        pularEspera = false;
+        OnIntervaloEntreOndasIniciado?.Invoke(duracao);
+
+        float tempoRestante = duracao;
+
+        while (tempoRestante > 0f && !pularEspera)
+        {
+            tempoRestante -= Time.deltaTime;
+            yield return null;
+        }
     }
 
     private IEnumerator SpawnarOndas()
@@ -82,16 +98,7 @@ public class Spawn : MonoBehaviour
             }
             else
             {
-                pularEspera = false;
-                OnIntervaloEntreOndasIniciado?.Invoke(tempoEntreOndas);
-
-                float tempoRestante = tempoEntreOndas;
-
-                while (tempoRestante > 0f && !pularEspera)
-                {
-                    tempoRestante -= Time.deltaTime;
-                    yield return null;
-                }
+                yield return Esperar(tempoEntreOndas);
             }
         }
     }
