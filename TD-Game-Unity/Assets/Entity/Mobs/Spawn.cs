@@ -15,6 +15,7 @@ public class Spawn : MonoBehaviour
 
     private Transform pathContainer;
     private Entity objetivo;
+    private Player jogador;
     private FaseSO faseAtual;
     private MultiplicadorDificuldade multiplicadorAtual;
     private readonly List<GameObject> mobsDaOndaAtual = new List<GameObject>();
@@ -29,6 +30,7 @@ public class Spawn : MonoBehaviour
     {
         pathContainer = GameObject.Find("Enemy_Path").transform;
         objetivo = GameObject.Find("Objective").GetComponent<Entity>();
+        jogador = GameObject.Find("Player").GetComponent<Player>();
 
         FaseSO[] fasesDisponiveis = Resources.LoadAll<FaseSO>("");
         string nomeCena = SceneManager.GetActiveScene().name;
@@ -79,7 +81,7 @@ public class Spawn : MonoBehaviour
                 {
                     Transform pontoSorteado = pontosDeSpawn[Random.Range(0, pontosDeSpawn.Length)];
                     GameObject mobInstanciado = Instantiate(mob.prefab, pontoSorteado.position, Quaternion.identity);
-                    mobInstanciado.GetComponent<Enemy_01>().DefinirCaminho(pathContainer, objetivo);
+                    mobInstanciado.GetComponent<Enemy_01>().DefinirCaminho(pathContainer, objetivo, jogador);
                     mobsDaOndaAtual.Add(mobInstanciado);
                     yield return new WaitForSeconds(intervalo);
                 }

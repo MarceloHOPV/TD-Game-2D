@@ -8,9 +8,11 @@ public class Enemy_01 : Entity
     }
 
     [SerializeField] private Transform pathContainer;
+    [SerializeField] private float recompensa = 5f;
 
     private Transform[] waypoints;
     private Entity objetivo;
+    private Player jogador;
     private EstadoInimigo estadoAtual = EstadoInimigo.Andar;
     private int waypointAtual = 0;
 
@@ -18,18 +20,29 @@ public class Enemy_01 : Entity
     {
         if (pathContainer != null)
         {
-            DefinirCaminho(pathContainer, objetivo);
+            DefinirCaminho(pathContainer, objetivo, jogador);
         }
     }
 
-    public void DefinirCaminho(Transform container, Entity objetivoAtual)
+    public void DefinirCaminho(Transform container, Entity objetivoAtual, Player jogadorAtual)
     {
         pathContainer = container;
         objetivo = objetivoAtual;
+        jogador = jogadorAtual;
         waypoints = new Transform[pathContainer.childCount];
         for (int i = 0; i < pathContainer.childCount; i++)
         {
             waypoints[i] = pathContainer.GetChild(i);
+        }
+    }
+
+    public override void TomarDano(float dano)
+    {
+        base.TomarDano(dano);
+
+        if (vidaAtual <= 0f)
+        {
+            jogador.AddMoney(recompensa);
         }
     }
 

@@ -6,12 +6,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI timeCounterText;
+    [SerializeField] private TextMeshProUGUI moneyText;
     [SerializeField] private GameObject endScreen;
     [SerializeField] private TextMeshProUGUI endScreenText;
     [SerializeField] private GameObject botaoSkip;
 
     private Spawn spawn;
     private Objective objetivo;
+    private Player player;
     private Coroutine contagemAtual;
     private bool autoAtivo;
     private bool jogoAcabou;
@@ -30,6 +32,12 @@ public class GameManager : MonoBehaviour
     {
         spawn = GetComponent<Spawn>();
         objetivo = GameObject.Find("Objective").GetComponent<Objective>();
+        player = GameObject.Find("Player").GetComponent<Player>();
+    }
+
+    void Update()
+    {
+        moneyText.text = $"Money\n{Mathf.RoundToInt(player.GetMoney())}";
     }
 
     void OnEnable()
@@ -100,7 +108,7 @@ public class GameManager : MonoBehaviour
 
         while (tempoRestante > 0f)
         {
-            timeCounterText.text = Mathf.CeilToInt(tempoRestante).ToString();
+            timeCounterText.text = $"Next Wave\n{Mathf.CeilToInt(tempoRestante)}";
             yield return null;
             tempoRestante -= Time.deltaTime;
         }

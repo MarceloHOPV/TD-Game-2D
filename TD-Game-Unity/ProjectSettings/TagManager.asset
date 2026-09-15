@@ -52,6 +52,9 @@ TagManager:
   - name: Turret_gun
     uniqueID: 3121256511
     locked: 0
+  - name: Player
+    uniqueID: 2262264667
+    locked: 0
   - name: Enemy
     uniqueID: 4245657343
     locked: 0
