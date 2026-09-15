@@ -66,11 +66,13 @@ public class Shop : MonoBehaviour
 
         torreSendoColocada = Instantiate(opcao.prefab);
         torreSendoColocada.GetComponent<Turret>().enabled = false;
+        torreSendoColocada.GetComponentInChildren<AreaDeSelecao>().enabled = false;
     }
 
     private void ConfirmarColocacao()
     {
         torreSendoColocada.GetComponent<Turret>().enabled = true;
+        torreSendoColocada.GetComponentInChildren<AreaDeSelecao>().enabled = true;
         torreSendoColocada = null;
     }
 
