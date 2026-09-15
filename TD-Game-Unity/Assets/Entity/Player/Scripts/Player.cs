@@ -23,4 +23,15 @@ public class Player : MonoBehaviour
         return Money;
     }
 
+    public bool SpendMoney(float amount)
+    {
+        if (Money < amount)
+        {
+            return false;
+        }
+
+        Money -= amount;
+        return true;
+    }
+
 }

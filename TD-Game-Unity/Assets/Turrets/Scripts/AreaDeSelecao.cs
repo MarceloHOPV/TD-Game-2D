@@ -13,10 +13,14 @@ public class AreaDeSelecao : MonoBehaviour
     private static AreaDeSelecao currentlySelected;
     private bool isSelected;
     private Collider2D selectionCollider;
+    private Turret turret;
+    private SelectedTurretPanel selectedTurretPanel;
 
     void Awake()
     {
         selectionCollider = GetComponent<Collider2D>();
+        turret = transform.parent.GetComponent<Turret>();
+        selectedTurretPanel = GameObject.Find("Selected_Turret").GetComponent<SelectedTurretPanel>();
 
         CircleCollider2D rangeCollider = transform.parent.GetComponent<CircleCollider2D>();
         rangeIndicator.GetComponent<Circulo>().SetRadius(rangeCollider.radius);
@@ -56,6 +60,7 @@ public class AreaDeSelecao : MonoBehaviour
         currentlySelected = this;
         selectionBorder.SetActive(true);
         rangeIndicator.SetActive(true);
+        selectedTurretPanel.Show(turret);
     }
 
     private void Deselect()
@@ -69,5 +74,6 @@ public class AreaDeSelecao : MonoBehaviour
 
         selectionBorder.SetActive(false);
         rangeIndicator.SetActive(false);
+        selectedTurretPanel.Hide();
     }
 }

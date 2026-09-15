@@ -15,6 +15,18 @@ public class Turret : MonoBehaviour
     [SerializeField] private float velocidadeRotacao = 200f;
     [SerializeField] private float taxaDeTiro = 1f;
     [SerializeField] private float toleranciaMira = 2f;
+    [SerializeField] private string turretName = "Turret";
+    [SerializeField] private float cost = 10f;
+
+    public string GetTurretName()
+    {
+        return turretName;
+    }
+
+    public float GetCost()
+    {
+        return cost;
+    }
 
     private readonly List<Entity> inimigosNoAlcance = new List<Entity>();
     private EstadoTorre estadoAtual = EstadoTorre.Parado;

@@ -112,7 +112,7 @@ MonoBehaviour:
   dano: 1
   vidaAtual: 0
   pathContainer: {fileID: 0}
-  recompensa: 5
+  recompensa: 7
 --- !u!58 &9188296050520228324
 CircleCollider2D:
   m_ObjectHideFlags: 0
